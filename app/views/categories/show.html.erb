@@ -1,13 +1,16 @@
 <div class="container">
   <div class="row">
+
     <ul class="nav nav-pills nav-pills-center">
       <li role="presentation" class="nav-item"><a class="nav-link active" href="/">全部餐廳</a></li>
       <% @categories.each do |category| %>
         <li role="presentation" class="nav-item"><a class="nav-link" href="http://localhost:3000/categories/<%= category.id%> "><%=category.name%></a></li>
       <% end %>
     </ul>
+
+    <br>
+
     <%= render partial: "shared/restaurant_list" %>
+
   </div>
 </div>
-
-
