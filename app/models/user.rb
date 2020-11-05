@@ -11,6 +11,10 @@ class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
   validates_presence_of :name
 
+  #like
+  has_many :likes, dependent: :destroy
+  has_many :liked_restaurants, through: :likes, source: :restaurant
+
   def admin?
     self.role == "admin"
   end
