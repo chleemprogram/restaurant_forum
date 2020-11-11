@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     #瀏覽所有餐廳的最新動態
     collection do
       get :feeds
+      #十大熱門餐廳
+      get :ranking
     end
 
     #瀏覽個別餐廳的Dashboard
