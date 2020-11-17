@@ -14,4 +14,12 @@ class Restaurant < ApplicationRecord
   def is_favorited?(user)
     self.favorited_users.include?(user)
   end
+
+  def update_favorites_count
+    self.increment!(:favorites_count)
+  end
+
+  def down_favorites_count
+    self.decrement!(:favorites_count, 1)
+  end
 end
