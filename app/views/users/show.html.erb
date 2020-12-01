@@ -9,30 +9,90 @@
         <div class="col-md-6 col-sm-8">
           <h2><%= @user.name %></h2>
           <p><strong><%= @user.email %></strong></p>
+          <p><%= @commented_restaurants.count %> 間已評論餐廳</p>
+          <p><%= @favorited_restaurants.count %> 間收藏餐廳</p>
+          <p><%= @followings.count %> followings </p>
+          <p><%= @followers.count %> followers</p>
           <div><%= simple_format @user.intro %></div>
           <% if @user.email == current_user.email %>
             <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-primary"%>
           <% end %>
         </div>
         <div class="clearfix"></div>
-
+        <br>
         
-          <div class="panel panel-default">
-            <div class="panel-heading">
+        <div class="col-md-4">
+          <div class="card">
+            <div class="card-header">
+              <h3><strong><%= @followings.count %> followings</strong></h3>
+              <ul class="list-group">
+                <% @followings.each do |following|%>
+                  <li class="list-group-item">
+                    <%= link_to user_path(following) do %>
+                    <%= image_tag(following.avatar, height: 30, width: 30, class: "img-circle")%>
+                    <%= following.name %>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3><strong><%= @followers.count %> followers </strong></h3>
+              <ul class="list-group">
+                <% @followers.each do |follower|%>
+                  <li class="list-group-item">
+                    <%= link_to user_path(follower) do %>
+                    <%= image_tag(follower.avatar, height: 30, width: 30, class: "img-circle")%>
+                    <%= follower.name %>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-header">
               <h3 class="panel-title"><strong><%= @commented_restaurants.count %></strong> 已評論餐廳</h3>
             </div>
-            <div class="panel-body">
+            <div class="card-body">
               <% @commented_restaurants.each do |restaurant| %>
-                <%= link_to restaurant_path(restaurant) do %>
-                  <div class="my-restaurant">
-                    <div>
-                      <%= image_tag restaurant.image.url, class: "img-rounded" %>
+                <div class="my-restaurant">
+                  <div>
+                    <%= link_to restaurant_path(restaurant) do %>
+                      <%= image_tag restaurant.image.url, class: "img-responsive img-rounded" %>
                       <h5><%= restaurant.name %></h5>
-                    </div>
+                    <% end %>
                   </div>
-                <% end %>
+                </div>
               <% end %>
             </div>
           </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h3 class="panel-title"><strong><%= @favorited_restaurants.count%> 間收藏餐廳</strong></h3>
+            </div>
+            <div class="card-body">
+              <% @favorited_restaurants.each do |restaurant| %>
+                <div class="my-restaurant">
+                  <div>
+                    <%= link_to restaurant_path(restaurant) do %>
+                      <% if restaurant.image? %>
+                        <%= image_tag restaurant.image.url, class: "img-responsive img-rounded" %>
+                      <% end %>
+                      <h5><%= restaurant.name %></h5>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
   </div>
 </div>
